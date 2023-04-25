@@ -14,10 +14,7 @@ export default {
 <template>
   <div class="col-4">
     <div class="card h-100">
-      <img
-        class="card-img-top"
-        src=""
-        alt="immagine" />
+      <img class="card-img-top" src="" alt="immagine" />
       <div class="card-body">
         <h3 class="card-title">{{ project.title }}</h3>
         <!-- <p>

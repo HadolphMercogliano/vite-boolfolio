@@ -6,15 +6,22 @@ export default {
   data() {
     return {
       title: "Hello",
-      projects: [],
+      projects: {
+        list: [],
+        pagination: [],
+      },
     };
   },
   components: { AppHeader, ProjectList },
 
+  emits: ["changePage"],
+
   methods: {
-    fetchProjects() {
-      axios.get("http://127.0.0.1:8000/api/projects").then((response) => {
-        this.projects = response.data;
+    fetchProjects(endpoint = null) {
+      if (!endpoint) endpoint = "http://127.0.0.1:8000/api/projects";
+      axios.get(endpoint).then((response) => {
+        this.projects.list = response.data.data;
+        this.projects.pagination = response.data.links;
         console.log(response.data);
       });
     },
@@ -32,8 +39,10 @@ export default {
   <main>
     <div class="container">
       <ProjectList
-        :projects="projects"
-        title="Progetti recenti" />
+        :projects="projects.list"
+        :pagination="projects.pagination"
+        title="Progetti recenti"
+        @changePage="fetchProjects" />
     </div>
   </main>
 </template>
