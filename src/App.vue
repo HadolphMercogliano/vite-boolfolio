@@ -1,7 +1,7 @@
 <script>
 import axios from "axios";
 import AppHeader from "./components/AppHeader.vue";
-
+import ProjectList from "./components/ProjectList.vue";
 export default {
   data() {
     return {
@@ -9,19 +9,19 @@ export default {
       projects: [],
     };
   },
+  components: { AppHeader, ProjectList },
+
   methods: {
     fetchProjects() {
       axios.get("http://127.0.0.1:8000/api/projects").then((response) => {
-        console.log(response);
         this.projects = response.data;
+        console.log(response.data);
       });
     },
   },
   created() {
     this.fetchProjects();
   },
-
-  components: { AppHeader },
 };
 </script>
 
@@ -29,10 +29,13 @@ export default {
   <header>
     <AppHeader />
   </header>
-  <h1>{{ title }}</h1>
-  <ul>
-    <li v-for="project in projects">Titolo: {{ project.title }}</li>
-  </ul>
+  <main>
+    <div class="container">
+      <ProjectList
+        :projects="projects"
+        title="Progetti recenti" />
+    </div>
+  </main>
 </template>
 
-<style lang="sass" scoped></style>
+<style lang="scss" scoped></style>
