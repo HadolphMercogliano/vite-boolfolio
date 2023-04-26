@@ -7,6 +7,8 @@ export default {
     pagination: Array,
     title: String,
   },
+  emits: ["changePage"],
+
   components: { ProjectCard },
 };
 </script>

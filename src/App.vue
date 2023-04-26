@@ -22,7 +22,7 @@ export default {
       axios.get(endpoint).then((response) => {
         this.projects.list = response.data.data;
         this.projects.pagination = response.data.links;
-        console.log(response.data);
+        // console.log(response.data);
       });
     },
   },
