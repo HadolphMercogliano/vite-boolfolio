@@ -6,6 +6,8 @@ import AboutPage from "../pages/AboutPage.vue";
 
 const router = createRouter({
   history: createWebHistory(),
+  linkActiveClass: 'active',
+  linkExactActiveClass:'',
   routes: [
     {
       path: "/",

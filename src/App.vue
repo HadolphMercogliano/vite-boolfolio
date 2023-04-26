@@ -15,7 +15,7 @@ export default {
     <AppHeader />
   </header>
   <main>
-    <div class="container">
+    <div class="container-md">
       <router-view></router-view>
     </div>
   </main>
