@@ -3,10 +3,13 @@ import axios from "axios";
 
 import ProjectCard from "./ProjectCard.vue";
 import AppPagination from "./AppPagination.vue";
+import AppLoader from "../components/AppLoader.vue";
 
 export default {
   data() {
     return {
+      isLoading: false,
+      error: null,
       projects: {
         list: [],
         pagination: [],
@@ -20,23 +23,38 @@ export default {
 
   methods: {
     fetchProjects(endpoint = null) {
+      this.isLoading = true;
       if (!endpoint) endpoint = "http://127.0.0.1:8000/api/projects";
-      axios.get(endpoint).then((response) => {
-        this.projects.list = response.data.data;
-        this.projects.pagination = response.data.links;
-        // console.log(response.data);
-      });
+      axios
+        .get(endpoint)
+        .then((response) => {
+          this.projects.list = response.data.data;
+          this.projects.pagination = response.data.links;
+          // console.log(response.data);
+        })
+        .catch((err) => {
+          this.error = err.message;
+        })
+        .finally(() => {
+          this.isLoading = false;
+        });
     },
   },
   created() {
     this.fetchProjects();
   },
-  components: { ProjectCard, AppPagination },
+  components: { ProjectCard, AppPagination, AppLoader },
 };
 </script>
 <template>
+  <AppLoader v-if="isLoading" />
   <h1 class="mb-4">{{ title }}</h1>
-  <div v-if="projects.list.length" class="row g-3">
+  <div v-if="error">
+    <div class="alert alert-danger" role="alert">
+      {{ error }}
+    </div>
+  </div>
+  <div v-else-if="projects.list.length" class="row g-3">
     <div class="col-4" v-for="project in projects.list">
       <ProjectCard :key="project.id" :project="project" :isDetail="false" />
     </div>
