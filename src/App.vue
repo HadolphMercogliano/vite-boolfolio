@@ -1,13 +1,12 @@
 <script>
 import AppHeader from "./components/AppHeader.vue";
-import HomePage from "./pages/HomePage.vue";
 export default {
   data() {
     return {
       title: "Hello",
     };
   },
-  components: { AppHeader, HomePage },
+  components: { AppHeader },
 };
 </script>
 
@@ -17,7 +16,7 @@ export default {
   </header>
   <main>
     <div class="container">
-      <HomePage />
+      <router-view></router-view>
     </div>
   </main>
 </template>
