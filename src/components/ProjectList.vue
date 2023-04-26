@@ -37,7 +37,9 @@ export default {
 <template>
   <h1 class="mb-4">{{ title }}</h1>
   <div v-if="projects.list.length" class="row g-3">
-    <ProjectCard v-for="project in projects.list" :key="project.id" :project="project" />
+    <div class="col-4" v-for="project in projects.list">
+      <ProjectCard :key="project.id" :project="project" :isDetail="false" />
+    </div>
   </div>
   <h2 v-else class="text-muted">Nessun progetto pubblicato</h2>
   <AppPagination :pagination="projects.pagination" @changePage="fetchProjects" />
