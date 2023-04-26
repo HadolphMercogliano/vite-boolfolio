@@ -7,7 +7,6 @@ export default {
 
   computed: {
     getAbstract() {
-      console.log(this.project);
       return this.project.description.slice(0, 100) + "...";
     },
   },
